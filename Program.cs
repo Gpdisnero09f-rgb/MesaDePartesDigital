@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 namespace MesaDePartesDigital
 {
+    // ==========================================
+    // CLASE MODELO: Solicitud (Entidad principal)
+    // ==========================================
     public class Solicitud
     {
         public string Id { get; set; }
@@ -13,11 +16,13 @@ namespace MesaDePartesDigital
         public string FechaRegistro { get; set; }
         public string Estado { get; set; }
 
+        // Serializa el objeto a una línea de texto plano separada por pipes (|)
         public override string ToString()
         {
             return $"{Id}|{Dni}|{NombreCompleto}|{Asunto}|{FechaRegistro}|{Estado}";
         }
 
+        // Deserializa una línea de texto plano y la convierte en un objeto Solicitud
         public static Solicitud DesdeLinea(string linea)
         {
             var partes = linea.Split('|');
@@ -45,7 +50,7 @@ namespace MesaDePartesDigital
             {
                 Console.Clear();
                 Console.WriteLine("========================================");
-                Console.WriteLine("   MESA DE PARTES DIGITAL - SISTEMA     ");
+                Console.WriteLine("    MESA DE PARTES DIGITAL - SISTEMA    ");
                 Console.WriteLine("========================================");
                 Console.WriteLine("1. Registrar nueva solicitud");
                 Console.WriteLine("2. Listar todas las solicitudes");
@@ -86,6 +91,7 @@ namespace MesaDePartesDigital
             }
         }
 
+        // 1. Registro con validaciones estrictas
         private static void RegistrarSolicitud()
         {
             Console.Clear();
@@ -159,6 +165,7 @@ namespace MesaDePartesDigital
             Console.ReadKey();
         }
 
+        // 2. Listado en formato tabular
         private static void ListarSolicitudes()
         {
             Console.Clear();
@@ -196,6 +203,7 @@ namespace MesaDePartesDigital
             Console.ReadKey();
         }
 
+        // 3. Búsqueda por DNI
         private static void BuscarSolicitud()
         {
             Console.Clear();
@@ -239,11 +247,7 @@ namespace MesaDePartesDigital
             Console.ReadKey();
         }
 
-        // =========================================================================
-        // NOTA: Esta función permite buscar una solicitud por su código ID único
-        // y actualizar su estado administrativo (Pendiente, En Proceso, Aprobado, Rechazado).
-        // Modifica el archivo .txt reescribiendo la línea con la nueva información.
-        // =========================================================================
+        // 4. Actualización de estado (Lectura, modificación en memoria y reescritura)
         private static void CambiarEstadoSolicitud()
         {
             Console.Clear();
@@ -286,18 +290,10 @@ namespace MesaDePartesDigital
 
                     switch (opcEstado)
                     {
-                        case "1":
-                            sol.Estado = "Pendiente";
-                            break;
-                        case "2":
-                            sol.Estado = "En Proceso";
-                            break;
-                        case "3":
-                            sol.Estado = "Aprobado";
-                            break;
-                        case "4":
-                            sol.Estado = "Rechazado";
-                            break;
+                        case "1": sol.Estado = "Pendiente"; break;
+                        case "2": sol.Estado = "En Proceso"; break;
+                        case "3": sol.Estado = "Aprobado"; break;
+                        case "4": sol.Estado = "Rechazado"; break;
                         default:
                             Console.WriteLine("[INFO] Opción no válida. Se mantendrá el estado actual.");
                             break;
@@ -325,11 +321,7 @@ namespace MesaDePartesDigital
             Console.ReadKey();
         }
 
-        // =========================================================================
-        // NOTA: Esta función permite eliminar un registro de trámite del sistema
-        // mediante la búsqueda exacta de su código ID. Reescribe el archivo omitiendo
-        // la solicitud seleccionada por el usuario.
-        // =========================================================================
+        // 5. Eliminación de registro por ID
         private static void EliminarSolicitud()
         {
             Console.Clear();
